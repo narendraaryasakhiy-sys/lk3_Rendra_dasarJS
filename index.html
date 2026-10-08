@@ -1,0 +1,851 @@
+Tentu. Berikut pemisahannya. **HTML** tetap memakai Tailwind CDN, sedangkan seluruh CSS custom dipindahkan ke `style.css`.
+
+### `index.html`
+
+:::writing{variant="document" id="58321" title="index.html"}
+
+```
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profil Saya - Narendra Aryasakhiy Wardhana</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+
+            theme: {
+                extend: {
+                    colors: {
+                        aesthetic: {
+                            bg: '#050b14',
+                            card: '#0c1629',
+                            border: '#1a2942',
+                            cyan: '#38bdf8',
+                            blue: '#2563eb',
+                            glow: '#00f0ff'
+                        }
+                    },
+
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+
+                    animation: {
+                        'float': 'float 5s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s infinite alternate',
+                        'spin-slow': 'spin 18s linear infinite',
+                    },
+
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0px)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-12px)'
+                            }
+                        },
+
+                        pulseGlow: {
+                            '0%': {
+                                boxShadow:
+                                    '0 0 20px rgba(56, 189, 248, 0.25), 0 0 40px rgba(37, 99, 235, 0.1)'
+                            },
+                            '100%': {
+                                boxShadow:
+                                    '0 0 40px rgba(0, 240, 255, 0.6), 0 0 60px rgba(37, 99, 235, 0.3)'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="min-h-screen text-slate-100 selection:bg-sky-500 selection:text-slate-950">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <header
+        class="fixed top-0 left-0 w-full z-50 transition-all duration-300 glass-nav border-b border-sky-900/30"
+        id="navbar">
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex items-center justify-between h-16 sm:h-20">
+
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center gap-2 group">
+
+                    <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-400 via-blue-600 to-cyan-400 flex items-center justify-center font-bold text-slate-950 text-xl shadow-lg shadow-sky-500/30 group-hover:scale-105 transition-transform">
+                        N
+                    </span>
+
+                    <span class="text-xl font-extrabold tracking-tight font-heading bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">
+                        Profil Saya
+                    </span>
+
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-3">
+
+                    <a href="#hero"
+                       class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 hover:bg-sky-950/40 transition-colors">
+                        Beranda
+                    </a>
+
+                    <a href="#about"
+                       class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 hover:bg-sky-950/40 transition-colors">
+                        Tentang Saya
+                    </a>
+
+                    <a href="#skills"
+                       class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 hover:bg-sky-950/40 transition-colors">
+                        Keahlian
+                    </a>
+
+                    <a href="#projects"
+                       class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 hover:bg-sky-950/40 transition-colors">
+                        Proyek
+                    </a>
+
+                    <a href="#contact"
+                       class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 hover:bg-sky-950/40 transition-colors">
+                        Kontak
+                    </a>
+
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button
+                    id="mobileMenuBtn"
+                    aria-label="Buka Menu"
+                    class="md:hidden p-2.5 rounded-xl bg-slate-900 border border-sky-800/40 text-slate-300 hover:text-sky-400 focus:outline-none">
+
+                    <i class="fas fa-bars text-lg" id="menuIcon"></i>
+
+                </button>
+
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div
+            id="mobileMenu"
+            class="hidden md:hidden px-4 pt-2 pb-6 bg-slate-950/95 border-b border-sky-900/40 shadow-2xl">
+
+            <div class="flex flex-col space-y-2 pt-2">
+
+                <a href="#hero"
+                   class="mobile-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-sky-900/30 hover:text-sky-400 font-medium">
+                    Beranda
+                </a>
+
+                <a href="#about"
+                   class="mobile-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-sky-900/30 hover:text-sky-400 font-medium">
+                    Tentang Saya
+                </a>
+
+                <a href="#skills"
+                   class="mobile-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-sky-900/30 hover:text-sky-400 font-medium">
+                    Keahlian
+                </a>
+
+                <a href="#projects"
+                   class="mobile-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-sky-900/30 hover:text-sky-400 font-medium">
+                    Proyek
+                </a>
+
+                <a href="#contact"
+                   class="mobile-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-sky-900/30 hover:text-sky-400 font-medium">
+                    Kontak
+                </a>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== HERO ==================== -->
+    <section
+        id="hero"
+        class="pt-32 pb-20 md:pt-40 md:pb-32 relative overflow-hidden flex flex-col items-center justify-center min-h-[90vh]">
+
+        <!-- Background Glow -->
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-sky-600/15 rounded-full blur-[130px] pointer-events-none"></div>
+
+        <div class="absolute top-1/4 right-10 w-72 h-72 bg-blue-600/15 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 flex flex-col items-center">
+
+            <!-- Avatar -->
+            <div class="relative mb-8 group animate-float">
+
+                <div class="absolute -inset-2 rounded-full bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-600 opacity-75 blur-md group-hover:opacity-100 transition-opacity animate-spin-slow"></div>
+
+                <div class="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full p-1.5 bg-slate-950 border-2 border-sky-400/80 shadow-2xl animate-pulse-glow overflow-hidden flex items-center justify-center">
+
+                    <img
+                        src="https://placehold.co/400x400/0c1629/38bdf8?text=Narendra+Avatar"
+                        alt="Narendra Aryasakhiy Wardhana"
+                        class="w-full h-full object-cover rounded-full filter hover:brightness-110 transition-all duration-300">
+
+                </div>
+
+                <!-- Status -->
+                <div
+                    class="absolute bottom-2 right-2 bg-slate-900 border border-sky-500/50 text-sky-400 p-2.5 rounded-full shadow-lg"
+                    title="PPLG Student">
+
+                    <i class="fas fa-code text-sm"></i>
+
+                </div>
+
+            </div>
+
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-950/80 border border-sky-500/30 text-sky-300 text-xs sm:text-sm font-semibold mb-5 shadow-inner">
+
+                <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+
+                <span>Siswa Kelas X PPLG</span>
+
+            </div>
+
+            <!-- Name -->
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 font-heading">
+
+                Narendra
+
+                <span class="bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent glow-text-blue">
+                    Aryasakhiy
+                </span>
+
+                Wardhana
+
+            </h1>
+
+            <!-- Typing -->
+            <h2 class="text-lg sm:text-2xl font-medium text-slate-300 mb-6 h-8 flex items-center justify-center">
+
+                <span
+                    id="typingElement"
+                    class="typing-cursor font-mono text-sky-400">
+                </span>
+
+            </h2>
+
+            <!-- Bio -->
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-8">
+
+                "Hai saya
+                <span class="text-sky-300 font-medium">Narendra</span>,
+                hobi saya menulis karya sastra dan tidur.
+                Sedang menekuni dunia Software & Web Development."
+
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-wrap gap-4 justify-center items-center">
+
+                <a
+                    href="#projects"
+                    class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-sky-400 to-blue-600 hover:from-sky-300 hover:to-blue-500 text-slate-950 font-bold shadow-lg shadow-sky-500/25 transition-all hover:-translate-y-1 active:translate-y-0 flex items-center gap-2">
+
+                    <span>Lihat Karya</span>
+
+                    <i class="fas fa-arrow-down text-xs"></i>
+
+                </a>
+
+                <a
+                    href="#contact"
+                    class="px-7 py-3.5 rounded-xl glass-card text-slate-200 hover:text-sky-400 font-semibold transition-all hover:-translate-y-1 active:translate-y-0 flex items-center gap-2">
+
+                    <span>Hubungi Saya</span>
+
+                    <i class="fas fa-paper-plane text-xs"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section id="about" class="py-20 relative">
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="text-center mb-16">
+
+                <h2 class="text-3xl sm:text-4xl font-bold font-heading">
+                    Tentang Saya
+                </h2>
+
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-400 to-blue-600 mx-auto mt-3 rounded-full"></div>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+
+                <!-- Profil Pelajar -->
+                <div class="glass-card p-8 rounded-2xl relative overflow-hidden">
+
+                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-sky-500/10 rounded-full blur-2xl"></div>
+
+                    <div class="w-12 h-12 rounded-xl bg-sky-950/80 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl mb-6">
+
+                        <i class="fas fa-laptop-code"></i>
+
+                    </div>
+
+                    <h3 class="text-2xl font-bold font-heading mb-3 text-slate-100">
+                        Profil Pelajar
+                    </h3>
+
+                    <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+
+                        Saat ini saya menempuh pendidikan di
+                        <span class="text-sky-300 font-semibold">
+                            Kelas X PPLG
+                        </span>
+                        (Pengembangan Perangkat Lunak dan GIM).
+
+                        Tertarik mempelajari rekayasa perangkat lunak,
+                        logika pemrograman, dan pembuatan website modern.
+
+                    </p>
+
+                </div>
+
+                <!-- Minat -->
+                <div class="glass-card p-8 rounded-2xl relative overflow-hidden">
+
+                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl"></div>
+
+                    <div class="w-12 h-12 rounded-xl bg-sky-950/80 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl mb-6">
+
+                        <i class="fas fa-headset"></i>
+
+                    </div>
+
+                    <h3 class="text-2xl font-bold font-heading mb-3 text-slate-100">
+                        Minat & Hiburan
+                    </h3>
+
+                    <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+
+                        Di waktu luang, saya sering bermain game,
+                        mengamati cara teman-teman menyelesaikan kodingan,
+                        serta terus mengeksplorasi tren teknologi dalam
+                        dunia web & game development.
+
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SKILLS ==================== -->
+    <section id="skills" class="py-20 bg-slate-900/30 relative">
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="text-center mb-16">
+
+                <h2 class="text-3xl sm:text-4xl font-bold font-heading">
+                    Keahlian & Minat
+                </h2>
+
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-400 to-blue-600 mx-auto mt-3 rounded-full"></div>
+
+                <p class="text-slate-400 mt-4 text-sm sm:text-base">
+                    Teknologi dan logika pemrograman yang sedang saya tekuni.
+                </p>
+
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+
+                <!-- HTML -->
+                <div class="glass-card p-6 rounded-2xl text-center flex flex-col items-center justify-center group hover:-translate-y-1.5 transition-all duration-300">
+
+                    <i class="fab fa-html5 text-4xl text-orange-400 mb-3 group-hover:scale-110 transition-transform"></i>
+
+                    <h4 class="font-bold font-heading text-slate-200">
+                        HTML5
+                    </h4>
+
+                    <span class="text-xs text-slate-400 mt-1">
+                        Struktur Web
+                    </span>
+
+                </div>
+
+                <!-- CSS -->
+                <div class="glass-card p-6 rounded-2xl text-center flex flex-col items-center justify-center group hover:-translate-y-1.5 transition-all duration-300">
+
+                    <i class="fab fa-css3-alt text-4xl text-sky-400 mb-3 group-hover:scale-110 transition-transform"></i>
+
+                    <h4 class="font-bold font-heading text-slate-200">
+                        CSS3 & Tailwind
+                    </h4>
+
+                    <span class="text-xs text-slate-400 mt-1">
+                        Styling Modern
+                    </span>
+
+                </div>
+
+                <!-- JavaScript -->
+                <div class="glass-card p-6 rounded-2xl text-center flex flex-col items-center justify-center group hover:-translate-y-1.5 transition-all duration-300">
+
+                    <i class="fab fa-js text-4xl text-yellow-400 mb-3 group-hover:scale-110 transition-transform"></i>
+
+                    <h4 class="font-bold font-heading text-slate-200">
+                        JavaScript
+                    </h4>
+
+                    <span class="text-xs text-slate-400 mt-1">
+                        Interaktivitas
+                    </span>
+
+                </div>
+
+                <!-- Game Development -->
+                <div class="glass-card p-6 rounded-2xl text-center flex flex-col items-center justify-center group hover:-translate-y-1.5 transition-all duration-300">
+
+                    <i class="fas fa-gamepad text-4xl text-cyan-400 mb-3 group-hover:scale-110 transition-transform"></i>
+
+                    <h4 class="font-bold font-heading text-slate-200">
+                        Game Development
+                    </h4>
+
+                    <span class="text-xs text-slate-400 mt-1">
+                        Dasar PPLG
+                    </span>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROJECTS ==================== -->
+    <section id="projects" class="py-20">
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="text-center mb-16">
+
+                <h2 class="text-3xl sm:text-4xl font-bold font-heading">
+                    Proyek & Portfolio
+                </h2>
+
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-400 to-blue-600 mx-auto mt-3 rounded-full"></div>
+
+                <p class="text-slate-400 mt-4 text-sm sm:text-base">
+                    Beberapa hasil karya web dan eksperimen kodingan saya.
+                </p>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Project 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+
+                    <div class="relative overflow-hidden aspect-video">
+
+                        <img
+                            src="https://placehold.co/600x400/0c1629/38bdf8?text=Aesthetic+Portfolio"
+                            alt="Project 1"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+
+                            <button
+                                onclick="openModal('project1')"
+                                class="px-4 py-2 bg-sky-400 text-slate-950 font-bold rounded-xl text-sm shadow-lg hover:bg-sky-300 transition-colors">
+
+                                Detail Proyek
+
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <div class="p-6">
+
+                        <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">
+                            Web Development
+                        </span>
+
+                        <h3 class="text-xl font-bold font-heading mt-1 mb-2">
+                            Aesthetic Personal Website
+                        </h3>
+
+                        <p class="text-slate-400 text-sm mb-4">
+                            Website profil pribadi berbasis Tailwind CSS
+                            dengan aksen neon aesthetic blue.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2">
+
+                            <span class="text-xs px-2.5 py-1 rounded-md bg-sky-950/80 text-sky-300 border border-sky-800/40">
+                                HTML
+                            </span>
+
+                            <span class="text-xs px-2.5 py-1 rounded-md bg-sky-950/80 text-sky-300 border border-sky-800/40">
+                                Tailwind
+                            </span>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+
+                    <div class="relative overflow-hidden aspect-video">
+
+                        <img
+                            src="leo.jpg"
+                            alt="Project 2"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+
+                            <button
+                                onclick="openModal('project2')"
+                                class="px-4 py-2 bg-sky-400 text-slate-950 font-bold rounded-xl text-sm shadow-lg hover:bg-sky-300 transition-colors">
+
+                                Detail Proyek
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="p-6">
+
+                        <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">
+                            Game Logic
+                        </span>
+
+                        <h3 class="text-xl font-bold font-heading mt-1 mb-2">
+                            Browser Game Eksperimen
+                        </h3>
+
+                        <p class="text-slate-400 text-sm mb-4">
+                            Eksperimen sederhana membuat game berbasis
+                            browser menggunakan JavaScript.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2">
+
+                            <span class="text-xs px-2.5 py-1 rounded-md bg-sky-950/80 text-sky-300 border border-sky-800/40">
+                                HTML
+                            </span>
+
+                            <span class="text-xs px-2.5 py-1 rounded-md bg-sky-950/80 text-sky-300 border border-sky-800/40">
+                                JavaScript
+                            </span>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+
+                    <div class="relative overflow-hidden aspect-video">
+
+                        <img
+                            src="https://placehold.co/600x400/0c1629/00f0ff?text=Web+Experiment"
+                            alt="Project 3"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+
+                            <button
+                                onclick="openModal('project3')"
+                                class="px-4 py-2 bg-sky-400 text-slate-950 font-bold rounded-xl text-sm shadow-lg hover:bg-sky-300 transition-colors">
+
+                                Detail Proyek
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="p-6">
+
+                        <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">
+                            Web Experiment
+                        </span>
+
+                        <h3 class="text-xl font-bold font-heading mt-1 mb-2">
+                            Modern Web Experiment
+                        </h3>
+
+                        <p class="text-slate-400 text-sm mb-4">
+                            Eksperimen membuat tampilan website modern
+                            menggunakan HTML dan CSS.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2">
+
+                            <span class="text-xs px-2.5 py-1 rounded-md bg-sky-950/80 text-sky-300 border border-sky-800/40">
+                                HTML
+                            </span>
+
+                            <span class="text-xs px-2.5 py-1 rounded-md bg-sky-950/80 text-sky-300 border border-sky-800/40">
+                                CSS
+                            </span>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact" class="py-20 bg-slate-900/30">
+
+        <div class="max-w-4xl mx-auto px-4 text-center">
+
+            <h2 class="text-3xl sm:text-4xl font-bold font-heading">
+                Hubungi Saya
+            </h2>
+
+            <div class="w-16 h-1 bg-gradient-to-r from-sky-400 to-blue-600 mx-auto mt-3 rounded-full"></div>
+
+            <p class="text-slate-400 mt-5 mb-8">
+                Tertarik berdiskusi atau ingin mengenal saya lebih jauh?
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4">
+
+                <a
+                    href="#"
+                    class="glass-card px-6 py-3 rounded-xl hover:text-sky-400 transition">
+
+                    <i class="fab fa-instagram mr-2"></i>
+                    Instagram
+
+                </a>
+
+                <a
+                    href="#"
+                    class="glass-card px-6 py-3 rounded-xl hover:text-sky-400 transition">
+
+                    <i class="fab fa-github mr-2"></i>
+                    GitHub
+
+                </a>
+
+                <a
+                    href="mailto:email@example.com"
+                    class="glass-card px-6 py-3 rounded-xl hover:text-sky-400 transition">
+
+                    <i class="fas fa-envelope mr-2"></i>
+                    Email
+
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="py-8 border-t border-sky-900/30 text-center">
+
+        <p class="text-sm text-slate-500">
+
+            © 2026 Narendra Aryasakhiy Wardhana.
+            Dibuat dengan ❤️ dan kode.
+
+        </p>
+
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+
+        // Mobile Menu
+        const mobileMenuBtn =
+            document.getElementById('mobileMenuBtn');
+
+        const mobileMenu =
+            document.getElementById('mobileMenu');
+
+        const menuIcon =
+            document.getElementById('menuIcon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+
+            mobileMenu.classList.toggle('hidden');
+
+            if (mobileMenu.classList.contains('hidden')) {
+
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+
+            } else {
+
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+
+            }
+
+        });
+
+        // Close mobile menu after clicking link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+
+            link.addEventListener('click', () => {
+
+                mobileMenu.classList.add('hidden');
+
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+
+            });
+
+        });
+
+        // Typing Effect
+        const typingElement =
+            document.getElementById('typingElement');
+
+        const words = [
+            'Web Developer',
+            'Software Enthusiast',
+            'Game Developer',
+            'PPLG Student'
+        ];
+
+        let wordIndex = 0;
+        let charIndex = 0;
+        let deleting = false;
+
+        function typeEffect() {
+
+            const currentWord =
+                words[wordIndex];
+
+            if (!deleting) {
+
+                typingElement.textContent =
+                    currentWord.substring(0, charIndex + 1);
+
+                charIndex++;
+
+                if (charIndex === currentWord.length) {
+
+                    deleting = true;
+
+                    setTimeout(typeEffect, 1500);
+
+                    return;
+
+                }
+
+            } else {
+
+                typingElement.textContent =
+                    currentWord.substring(0, charIndex - 1);
+
+                charIndex--;
+
+                if (charIndex === 0) {
+
+                    deleting = false;
+
+                    wordIndex =
+                        (wordIndex + 1) % words.length;
+
+                }
+
+            }
+
+            setTimeout(
+                typeEffect,
+                deleting ? 60 : 100
+            );
+
+        }
+
+        typeEffect();
+
+        // Project Modal
+        function openModal(project) {
+
+            alert(
+                'Detail proyek: ' +
+                project +
+                '\n\nFitur modal dapat dikembangkan lebih lanjut.'
+            );
+
+        }
+
+        // Navbar Scroll Effect
+        const navbar =
+            document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+
+            if (window.scrollY > 50) {
+
+                navbar.classList.add(
+                    'shadow-lg',
+                    'shadow-sky-950/20'
+                );
+
+            } else {
+
+                navbar.classList.remove(
+                    'shadow-lg',
+                    'shadow-sky-950/20'
+                );
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #050b14;
+    color: #e2e8f0;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-heading {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* ========================================
+   GLASSMORPHISM
+======================================== */
+
+.glass-card {
+    background: rgba(12, 22, 41, 0.65);
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    border: 1px solid rgba(56, 189, 248, 0.15);
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    border-color: rgba(56, 189, 248, 0.4);
+
+    box-shadow:
+        0 10px 30px -10px rgba(56, 189, 248, 0.25);
+}
+
+.glass-nav {
+    background: rgba(5, 11, 20, 0.85);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* ========================================
+   NEON TEXT
+======================================== */
+
+.glow-text-blue {
+    text-shadow:
+        0 0 20px rgba(56, 189, 248, 0.6),
+        0 0 40px rgba(37, 99, 235, 0.4);
+}
+
+/* ========================================
+   CUSTOM SCROLLBAR
+======================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050b14;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1a2942;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #38bdf8;
+}
+
+/* ========================================
+   TYPING EFFECT
+======================================== */
+
+.typing-cursor::after {
+    content: '|';
+
+    animation:
+        blink 0.8s infinite;
+
+    color: #38bdf8;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ========================================
+   CUSTOM ANIMATION
+======================================== */
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes pulseGlow {
+
+    0% {
+        box-shadow:
+            0 0 20px rgba(56, 189, 248, 0.25),
+            0 0 40px rgba(37, 99, 235, 0.1);
+    }
+
+    100% {
+        box-shadow:
+            0 0 40px rgba(0, 240, 255, 0.6),
+            0 0 60px rgba(37, 99, 235, 0.3);
+    }
+}
+
+/* ========================================
+   UTILITY ANIMATION
+   Digunakan jika class Tailwind tidak
+   berhasil membaca konfigurasi custom.
+======================================== */
+
+.animate-float {
+    animation:
+        float 5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+    animation:
+        pulseGlow 3s infinite alternate;
+}
+
+/* ========================================
+   IMAGE HOVER
+======================================== */
+
+img {
+    transition:
+        filter 0.3s ease,
+        transform 0.5s ease;
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 640px) {
+
+    .glass-card {
+        border-color:
+            rgba(56, 189, 248, 0.12);
+    }
+
+}
